@@ -1,0 +1,1 @@
+A Slim based bookkeeping web application
