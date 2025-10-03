@@ -1,37 +1,9 @@
 <?php
 /*
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Factory\AppFactory;
-use Slim\Twig;
-use Slim\TwigMiddleware;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-$app = AppFactory::create();
-
-$twig = Twig::create("../templates", ['cache' => false]);
-
-$app->add(TwigMiddleware::create($app, $twig));
-
-$app->get('/', function (Request $request, Response $response) {
-    $response->getBody()->write("Hello world!");
-    return $response;
-});
-
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $response->getBody()->write("Hello " . ucfirst( $request->getAttribute('name') ) . "!");
-    return $response;
-});
-
-$app->run();
-*/
-
-use DI\Container;
-use Slim\Factory\AppFactory;
-use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
-
+    use DI\Container;
+    use Slim\Factory\AppFactory;
+    use Slim\Views\Twig;
+    use Slim\Views\TwigMiddleware;
 require __DIR__ . '/../vendor/autoload.php';
 
 // Create Container
@@ -39,7 +11,8 @@ $container = new Container();
 
 // Set view in Container
 $container->set(Twig::class, function() {
-    return Twig::create(__DIR__ . '/../templates', ['cache' => '/../cache']);
+//    return Twig::create(__DIR__ . '/../templates', ['cache' => '/../cache']);
+    return Twig::create(__DIR__ . '/../templates', ['cache' => false]);
 });
 
 // Create App from container
@@ -77,4 +50,10 @@ $app->get('/hi/{name}', function ($request, $response, $args) {
 });
 
 // Run app
+$app->run();
+*/
+
+require '../bootstrap/container.php';
+require '../bootstrap/app.php';
+require '../routes/web.php';
 $app->run();
